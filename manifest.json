@@ -1,0 +1,33 @@
+{
+  "name": "YES GPA",
+  "version": "1.0",
+  "description": "Display average GPA on YES!",
+  "icons": {
+    "16": "images/get_started16.png",
+    "32": "images/get_started32.png",
+    "48": "images/get_started48.png",
+    "128": "images/get_started128.png"
+  },
+  "permissions": ["storage", "tabs", "<all_urls>", "declarativeContent", "identity"],
+  "background": {
+    "page": "background.html"
+  },
+  "content_scripts": [{
+    "matches": ["https://acad.app.vanderbilt.edu/more/SearchClasses!input.action?commodoreIdToLoad=*"],
+    "css": ["gpa.css"],
+    "js": ["jquery-3.4.1.min.js", "gpa.js", "subs.js"],
+    "run_at": "document_end",
+    "all_frames": true
+  }],
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/get_started16.png",
+      "32": "images/get_started32.png",
+      "48": "images/get_started48.png",
+      "128": "images/get_started128.png"
+    }
+  },
+  "content_security_policy":"script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com https://www.googletagmanager.com; object-src 'self'",
+  "manifest_version": 2
+}
