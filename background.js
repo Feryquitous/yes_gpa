@@ -16,8 +16,12 @@ firebase.analytics();
 document.addEventListener("DOMContentLoaded", event => {
     const app = firebase.app();
     const db = firebase.firestore();
-    const myEntry = db.collection('test_gpa_entries').doc('first_entry');
-    myEntry.get().then(doc => {
-        const data = doc.data();
-    })
+    const myEntryRef = db.collection('test_gpa_entries');
+    myEntryRef.get().then(products => {
+        products.forEach(doc => {
+            data = doc.data();
+            console.log(data);
+            console.log(data.gpa);
+        })
+    });
 });
