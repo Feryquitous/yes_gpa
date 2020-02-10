@@ -1,25 +1,17 @@
-var timeout = null;
-
-/**
- * Checks the DOM for changes ten times per second
- * This allows the extension to update even though the URL never changes
- */
-document.addEventListener("DOMSubtreeModified", function () {
-    if (timeout) {
-        clearTimeout(timeout);
+document.addEventListener("DOMContentLoaded", event => {
+    const displayedClasses = document.querySelector('#carousel');
+    const classObserverConfig = {
+        childList: true,
+        subtree: true
     }
-    timeout = setTimeout(update, 100);
-}, false);
+    const classChange = new MutationObserver(mutations => {
+        $(".classInstructor").not("[avg-gpa-applied='true']")
+            .each(function (i, element) {
+                $(element).text($(element).text() + ' my test GPA');
 
-/**
- * Searches through results page for professor names
- */
-function update() {
-    $(".classInstructor").not("[avg-gpa-applied='true']")
-        .each(function (i, element) {
-            $(element).text($(element).text() + ' my test GPA');
-
-            // Redundancy Mark  
-            $(element).attr('avg-gpa-applied', 'true');
-        });
-}
+                // Redundancy Mark  
+                $(element).attr('avg-gpa-applied', 'true');
+            });
+    });
+    classChange.observe(displayedClasses, classObserverConfig);
+});

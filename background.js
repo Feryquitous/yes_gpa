@@ -1,20 +1,23 @@
- // Your web app's Firebase configuration
- var firebaseConfig = {
-     apiKey: "AIzaSyDLksBHHimxHXlP9D0YUBOe_gFAWwI4HBE",
-     authDomain: "yes-gpa-a7ffc.firebaseapp.com",
-     databaseURL: "https://yes-gpa-a7ffc.firebaseio.com",
-     projectId: "yes-gpa-a7ffc",
-     storageBucket: "yes-gpa-a7ffc.appspot.com",
-     messagingSenderId: "514830833123",
-     appId: "1:514830833123:web:7f182dd780d844c0d5bcd6",
-     measurementId: "G-82QWCB7X0E"
- };
+// Your web app's Firebase configuration
+var firebaseConfig = {
+    apiKey: "AIzaSyDLksBHHimxHXlP9D0YUBOe_gFAWwI4HBE",
+    authDomain: "yes-gpa-a7ffc.firebaseapp.com",
+    databaseURL: "https://yes-gpa-a7ffc.firebaseio.com",
+    projectId: "yes-gpa-a7ffc",
+    storageBucket: "yes-gpa-a7ffc.appspot.com",
+    messagingSenderId: "514830833123",
+    appId: "1:514830833123:web:7f182dd780d844c0d5bcd6",
+    measurementId: "G-82QWCB7X0E"
+};
 
- firebase.initializeApp(firebaseConfig);
- firebase.analytics();
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
 
- document.addEventListener("DOMContentLoaded", event => {
+document.addEventListener("DOMContentLoaded", event => {
     const app = firebase.app();
-    console.log('hi');
-
- });
+    const db = firebase.firestore();
+    const myEntry = db.collection('test_gpa_entries').doc('first_entry');
+    myEntry.get().then(doc => {
+        const data = doc.data();
+    })
+});

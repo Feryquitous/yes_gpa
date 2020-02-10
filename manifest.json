@@ -16,7 +16,7 @@
     "matches": ["https://acad.app.vanderbilt.edu/more/SearchClasses!input.action?commodoreIdToLoad=*"],
     "css": ["gpa.css"],
     "js": ["jquery-3.4.1.min.js", "gpa.js", "subs.js"],
-    "run_at": "document_end",
+    "run_at": "document_start",
     "all_frames": true
   }],
   "browser_action": {
