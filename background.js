@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", event => {
     // read data
     const app = firebase.app();
     const db = firebase.firestore();
+   
     const myEntryRef = db.collection("test_average_gpa_by_professor_and_class");
 
     let gpa_list = [];
@@ -41,9 +42,9 @@ document.addEventListener("DOMContentLoaded", event => {
         }
     });
 
-    // chrome.runtime.onMessage.addListener(function (response, sender, sendResponse) {
-    //     // alert(response);
-    // });
+    chrome.runtime.onMessage.addListener(function (response, sender, sendResponse) {
+        // alert(response);
+    });
 
     // write data
     var ref = db.collection('test_average_gpa_by_professor_and_class').doc('oMLoQReeqcvFlWsrezVC');
