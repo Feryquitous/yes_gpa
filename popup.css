@@ -1,15 +1,19 @@
 label {
     display: block;
     font-weight: bold;
+    margin-top: 0.5em;
     margin-bottom: 0.5em;
 }
 
-select {
-    display: block;
+datalist {
     margin-bottom: 0.5em;
 }
 
-input {
+#professors {
+    min-width: 60%;
+}
+
+button {
     display: block;
-    margin-bottom: 1em;
+    margin-top: 1em;
 }
