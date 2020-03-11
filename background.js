@@ -28,8 +28,6 @@ document.addEventListener("DOMContentLoaded", event => {
         })
     });
 
-    console.log(gpa_list);
-
     // better way to send data?
     chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
         if (changeInfo.status == 'complete') {

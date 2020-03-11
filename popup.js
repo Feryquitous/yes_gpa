@@ -18,9 +18,7 @@ document.addEventListener("DOMContentLoaded", event => {
     const db = firebase.firestore();
 
     let classByProfessorDropdown = new Map();
-    let a = 0;
-    a++;
-    console.log(a);
+
     // Classes Dropdown
     db.collection("class_by_professor").get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
@@ -56,15 +54,9 @@ document.addEventListener("DOMContentLoaded", event => {
     });
 
     $("#submit").click(() => {
-        a++;
-        console.log(a);
-
         let selectedClass = $("#classes").children("option:selected").text();
         let selectedProfessor = $("#professors").children("option:selected").text();
         let inputGPA = $("#gpa").val();
-
-
-        alert(selectedClass + " " + selectedProfessor);
 
         let documentName = selectedClass + "_" + selectedProfessor;
         // write data
