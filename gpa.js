@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", event => {
                             return true;
                         } else return false;
                     })) {
-                    $(element).text($(element).text() + ' ' + gpa_by_class_professor.toString());
+                    $(element).text($(element).text() + ' ' + gpa_by_class_professor.toString().substring(0, 5));
                 } else {
                     $(element).text($(element).text() + ' my test GPA');
                 }

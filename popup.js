@@ -19,7 +19,8 @@ document.addEventListener("DOMContentLoaded", event => {
 
     let classByProfessorDropdown = new Map();
     let a = 0;
-
+    a++;
+    console.log(a);
     // Classes Dropdown
     db.collection("class_by_professor").get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
@@ -55,34 +56,66 @@ document.addEventListener("DOMContentLoaded", event => {
     });
 
     $("#submit").click(() => {
+        a++;
+        console.log(a);
+
         let selectedClass = $("#classes").children("option:selected").text();
         let selectedProfessor = $("#professors").children("option:selected").text();
+        let inputGPA = $("#gpa").val();
+
+        
         alert(selectedClass + " " + selectedProfessor);
 
+        let documentName = selectedClass + "_" + selectedProfessor;
         // write data
+
+        var docRef = db.collection("test_average_gpa_by_professor_and_class").doc(documentName);
+
+        docRef.get().then(function (doc) {
+            if (doc.exists) {
+                db.runTransaction(transaction => {
+                    return transaction.get(docRef).then(res => {
+                        if (!res.exists) {
+                            throw "Document does not exist!";
+                        }
+
+                        // Compute new number of ratings
+                        let newCount = parseInt(res.data().count) + 1;
+
+                        // Compute new average rating
+                        let oldRatingTotal = res.data().averagegpa * res.data().count;
+                        console.log(oldRatingTotal);
+                        console.log(inputGPA);
+
+                        console.log(newCount);
+
+                        let newAvgRating = (Number(oldRatingTotal) + Number(inputGPA)) / newCount;
+                        // Commit to Firestore
+                        transaction.update(docRef, {
+                            averagegpa: newAvgRating,
+                            count: newCount
+                        });
+
+                    })
+                });
+            } else {
+                docRef.set({
+                        averagegpa: Number(inputGPA),
+                        classid: selectedClass,
+                        count: 1,
+                        professor: selectedProfessor
+                    })
+                    .then(function () {
+                        console.log("Document successfully written!");
+                    })
+                    .catch(function (error) {
+                        console.error("Error writing document: ", error);
+                    });
+            }
+        }).catch(function (error) {
+            console.log("Error getting document:", error);
+        });
         // var ref = db.collection('test_average_gpa_by_professor_and_class').doc('oMLoQReeqcvFlWsrezVC');
-
-        // db.runTransaction(transaction => {
-        //     return transaction.get(ref).then(res => {
-        //         if (!res.exists) {
-        //             throw "Document does not exist!";
-        //         }
-
-        //         // Compute new number of ratings
-        //         var newNumRatings = parseInt(res.data().count) + 1;
-
-        //         // Compute new average rating
-        //         var oldRatingTotal = res.data().averagegpa * res.data().count;
-        //         var newAvgRating = (oldRatingTotal + 4) / newNumRatings;
-
-        //         // Commit to Firestore
-        //         transaction.update(ref, {
-        //             count: newNumRatings,
-        //             averagegpa: newAvgRating
-        //         });
-
-        //     })
-        // });
     });
 
 
