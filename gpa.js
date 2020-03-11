@@ -38,8 +38,4 @@ document.addEventListener("DOMContentLoaded", event => {
             });
     });
     classChange.observe(displayedClasses, classObserverConfig);
-
-
-
-
 });

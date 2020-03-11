@@ -44,7 +44,6 @@ document.addEventListener("DOMContentLoaded", event => {
         for (var professor in selectedProfessors) {
             if (selectedProfessors.hasOwnProperty(professor)) {
                 professors.push(selectedProfessors[professor]);
-           
             }
         }
 
