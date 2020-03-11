@@ -6,8 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <style>
-  </style>
+  <link rel="stylesheet" href="popup.css">
 </head>
 
 <body>
@@ -21,7 +20,8 @@
     <select id="professors"></select>
     <br><br>
     <label for="gpa">GPA</label>
-    <input type="text" id="gpa" name="gpa" value="GPA">
+    <br>
+    <input type="number" id="gpa" name="gpa" value="3" required min="1" max="4">
     <br><br>
     <button id="submit" type="button">Submit</button>
   </form>
