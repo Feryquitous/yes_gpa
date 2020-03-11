@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", event => {
     });
 
     $("#classes").change(function () {
-        var selectedClasses = $(this).children("option:selected").text();
+        let selectedClasses = $(this).children("option:selected").text();
         let selectedProfessors = classByProfessorDropdown.get(selectedClasses);
         let professors = [];
 
@@ -54,7 +54,34 @@ document.addEventListener("DOMContentLoaded", event => {
     });
 
     $("#submit").click(() => {
-        alert("Handler for .click() called.");
+        let selectedClass = $("#classes").children("option:selected").text();
+        let selectedProfessor = $("#professors").children("option:selected").text();
+        alert(selectedClass + " " + selectedProfessor);
+
+        // write data
+        // var ref = db.collection('test_average_gpa_by_professor_and_class').doc('oMLoQReeqcvFlWsrezVC');
+
+        // db.runTransaction(transaction => {
+        //     return transaction.get(ref).then(res => {
+        //         if (!res.exists) {
+        //             throw "Document does not exist!";
+        //         }
+
+        //         // Compute new number of ratings
+        //         var newNumRatings = parseInt(res.data().count) + 1;
+
+        //         // Compute new average rating
+        //         var oldRatingTotal = res.data().averagegpa * res.data().count;
+        //         var newAvgRating = (oldRatingTotal + 4) / newNumRatings;
+
+        //         // Commit to Firestore
+        //         transaction.update(ref, {
+        //             count: newNumRatings,
+        //             averagegpa: newAvgRating
+        //         });
+
+        //     })
+        // });
     });
 
 
