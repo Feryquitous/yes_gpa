@@ -11,17 +11,19 @@
 </head>
 
 <body>
-  <form action="/action_page.php">
-    Class:<br>
-    <input type="text" name="class" value="Class">
+  <form>
+    <label for="class">Class</label>
     <br>
-    Professor:<br>
-    <input type="text" name="professor" value="Professor">
+    <select id="classes"></select>
+    <br><br>
+    <label for="professor">Professor</label>
     <br>
-    GPA:<br>
+    <select id="professors"></select>
+    <br><br>
+    <label for="gpa">GPA</label>
     <input type="text" name="gpa" value="GPA">
     <br><br>
-    <input type="submit" value="Submit">
+    <input id="submit" type="submit" value="Submit">
   </form>
 
 
@@ -31,7 +33,7 @@
   <!-- https://firebase.google.com/docs/web/setup#available-libraries -->
   <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-analytics.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-firestore.js"></script>
-
+  <script src="jquery-3.4.1.min.js"></script>
   <script src="popup.js"></script>
 </body>
 

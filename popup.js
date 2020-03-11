@@ -12,18 +12,40 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
-console.log('Hi');
-
 document.addEventListener("DOMContentLoaded", event => {
     // read data
     const app = firebase.app();
     const db = firebase.firestore();
 
     let class_by_professor_dropdown = new Map();
+
+    // Classes Dropdown
     db.collection("class_by_professor").get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
             class_by_professor_dropdown.set(doc.id, doc.data());
         });
+
+        let classes = Array.from(class_by_professor_dropdown.keys());
+
+        $('#classes').empty();
+
+        $.each(classes, function (i, p) {
+            $('#classes').append($('<option></option>').val(p).html(p));
+        });
     });
+
+    $("#submit").click(() => {
+        alert("Handler for .click() called.");
+    });
+
+    // let test = class_by_professor_dropdown.get('CS 3251');
+
+    // for (var key in test) {
+    //     if (test.hasOwnProperty(key)) {
+    //         console.log(test[key]);
+    //     }
+    // }
+
+
 
 });
