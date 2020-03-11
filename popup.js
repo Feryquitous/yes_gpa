@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", event => {
     const db = firebase.firestore();
 
     let classByProfessorDropdown = new Map();
+    let a = 0;
 
     // Classes Dropdown
     db.collection("class_by_professor").get().then(function (querySnapshot) {
