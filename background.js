@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", event => {
     // read data
     const app = firebase.app();
     const db = firebase.firestore();
-   
+
     const myEntryRef = db.collection("test_average_gpa_by_professor_and_class");
 
     let gpa_list = [];

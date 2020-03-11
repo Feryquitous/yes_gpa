@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", event => {
         let selectedProfessor = $("#professors").children("option:selected").text();
         let inputGPA = $("#gpa").val();
 
-        
+
         alert(selectedClass + " " + selectedProfessor);
 
         let documentName = selectedClass + "_" + selectedProfessor;
@@ -75,10 +75,6 @@ document.addEventListener("DOMContentLoaded", event => {
             if (doc.exists) {
                 db.runTransaction(transaction => {
                     return transaction.get(docRef).then(res => {
-                        if (!res.exists) {
-                            throw "Document does not exist!";
-                        }
-
                         // Compute new number of ratings
                         let newCount = parseInt(res.data().count) + 1;
 
