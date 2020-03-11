@@ -1,0 +1,15 @@
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+
+select {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+input {
+    display: block;
+    margin-bottom: 1em;
+}
