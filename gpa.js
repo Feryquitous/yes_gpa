@@ -18,7 +18,8 @@ document.addEventListener("DOMContentLoaded", event => {
                 let professor_name = $(element).text().trim();
 
                 // Extract class ID
-                let class_ID = $(element).parent().parent().first()[0]['innerText'].trim().substring(0, 7);
+                var pos = $(element).parent().parent().first()[0]['innerText'].trim().indexOf(":");
+                let class_ID = $(element).parent().parent().first()[0]['innerText'].trim().substring(0, pos);
 
                 let gpa_by_class_professor = 0;
 

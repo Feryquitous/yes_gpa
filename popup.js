@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", event => {
     $("#submit").click(() => {
         let selectedClass = $("#class").val();
         // Better form validation?
-        if ( selectedClass == '') {
+        if (selectedClass == '') {
             alert('Please enter a class.');
             throw new Error("No class entered.");
         }
