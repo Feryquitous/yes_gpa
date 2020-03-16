@@ -14,7 +14,7 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 document.addEventListener("DOMContentLoaded", event => {
-    // read data
+    // Read Data
     const app = firebase.app();
     const db = firebase.firestore();
 
@@ -22,13 +22,18 @@ document.addEventListener("DOMContentLoaded", event => {
 
     let gpa_list = [];
 
-    myEntryRef.get().then(products => {
-        products.forEach(doc => {
-            gpa_list.push(doc.data());
+    myEntryRef.get()
+        .then(products => {
+            products.forEach(doc => {
+                gpa_list.push(doc.data());
+            })
         })
-    });
+        // Terminate Firestore
+        .then(() => {
+            db.terminate();
+        });
 
-    // better way to send data?
+    // Storage API?
     chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
         if (changeInfo.status == 'complete') {
             chrome.tabs.query({

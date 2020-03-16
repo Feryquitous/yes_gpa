@@ -13,7 +13,7 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 document.addEventListener("DOMContentLoaded", event => {
-    // read data
+    // Read Data
     const app = firebase.app();
     const db = firebase.firestore();
 
@@ -132,11 +132,8 @@ document.addEventListener("DOMContentLoaded", event => {
             });
         }
     });
-
-    // Offline?
-    $(window).on("unload", function (e) {
-        db.goOffline();
-        alert('???');
-        console.log('???');
-    });
 });
+
+window.addEventListener("beforeunload", function (e) {
+    throw "is Empty";
+}, false);
