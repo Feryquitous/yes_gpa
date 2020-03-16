@@ -12,12 +12,12 @@
 <body>
   <form>
     <label for="class">Class</label>
-    <input list="classes" id="class" name="class" placeholder="Type your class ID here."/>
+    <input list="classes" id="class" name="class" placeholder="Type your class ID here." />
     <datalist id="classes"></datalist>
-    
     <label for="professor">Professor</label>
-    <select id="professors"></select>
-    
+    <select id="professors">
+      <option selected hidden disabled>Select your professor here.</option>
+    </select>
     <label for="gpa">GPA</label>
     <input type="number" id="gpa" name="gpa" value="3" required min="1" max="4">
     <button id="submit" type="button">Submit</button>

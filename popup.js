@@ -27,8 +27,8 @@ document.addEventListener("DOMContentLoaded", event => {
 
         let classes = Array.from(classByProfessorDropdown.keys());
 
+        // Reset
         $('#classes').empty();
-
         $.each(classes, function (i, p) {
             $('#classes').append($('<option></option>').val(p).html(p));
         });
@@ -36,32 +36,33 @@ document.addEventListener("DOMContentLoaded", event => {
         $('#classes').trigger('change');
     });
 
-
     // Datalist event listener
-    document.querySelector('input[list="classes"]').addEventListener('input', onInput);
+    document.querySelector('input[list="classes"]').addEventListener('input', onClassInput);
 
     function selectProfessor() {
         let selectedClasses = $("#class").val();
 
-        if (selectedClasses.length == 7) {
-            let selectedProfessors = classByProfessorDropdown.get(selectedClasses);
-            let professors = [];
+        let selectedProfessors = classByProfessorDropdown.get(selectedClasses);
+        let professors = [];
 
-            for (var professor in selectedProfessors) {
-                if (selectedProfessors.hasOwnProperty(professor)) {
-                    professors.push(selectedProfessors[professor]);
-                }
+        for (var professor in selectedProfessors) {
+            if (selectedProfessors.hasOwnProperty(professor)) {
+                professors.push(selectedProfessors[professor]);
             }
-
-            $('#professors').empty();
-            $.each(professors, function (i, p) {
-                $('#professors').append($('<option></option>').val(p).html(p));
-            });
         }
+
+        // Reset
+        $('#professors').empty();
+        $('#professors').append($('<option selected hidden disabled>Select your professor here.</option>'));
+
+        $.each(professors, function (i, p) {
+            $('#professors').append($('<option></option>').val(p).html(p));
+        });
+
     };
 
-    // Click on a option
-    function onInput() {
+    // Option clicked
+    function onClassInput() {
         var val = document.getElementById("class").value;
         var opts = document.getElementById('classes').childNodes;
         for (var i = 0; i < opts.length; i++) {
@@ -78,62 +79,64 @@ document.addEventListener("DOMContentLoaded", event => {
         }
     });
 
+    // Submission
     $("#submit").click(() => {
         let selectedClass = $("#class").val();
-        // Better form validation?
-        if (selectedClass == '') {
-            alert('Please enter a class.');
-            throw new Error("No class entered.");
-        }
-
         let selectedProfessor = $("#professors").children("option:selected").text();
         let inputGPA = $("#gpa").val();
 
-        let documentName = selectedClass + "_" + selectedProfessor;
-        // write data
+        // Better form validation?
+        if (selectedClass === '') {
+            alert('Please enter a class.');
+        } else if (selectedProfessor === 'Select your professor here.') {
+            alert('Please select a professor.');
+        } else {
+            let documentName = selectedClass + "_" + selectedProfessor;
+            // write data
 
-        // need to change later
-        var docRef = db.collection("test_average_gpa_by_professor_and_class").doc(documentName);
-
-        docRef.get().then(function (doc) {
-            if (doc.exists) {
-                db.runTransaction(transaction => {
-                    return transaction.get(docRef).then(res => {
-                        // Compute new number of ratings
-                        let newCount = parseInt(res.data().count) + 1;
-
-                        // Compute new average rating
-                        let oldRatingTotal = res.data().averagegpa * res.data().count;
-                        console.log(oldRatingTotal);
-                        console.log(inputGPA);
-
-                        console.log(newCount);
-
-                        let newAvgRating = (Number(oldRatingTotal) + Number(inputGPA)) / newCount;
-                        // Commit to Firestore
-                        transaction.update(docRef, {
-                            averagegpa: newAvgRating,
-                            count: newCount
+            // need to ref change later
+            var docRef = db.collection("test_average_gpa_by_professor_and_class").doc(documentName);
+            docRef.get().then(function (doc) {
+                if (doc.exists) {
+                    db.runTransaction(transaction => {
+                        return transaction.get(docRef).then(res => {
+                            // Compute new number of ratings
+                            let newCount = parseInt(res.data().count) + 1;
+                            // Compute new average rating
+                            let oldRatingTotal = res.data().averagegpa * res.data().count;
+                            let newAvgRating = (Number(oldRatingTotal) + Number(inputGPA)) / newCount;
+                            // Commit to Firestore
+                            transaction.update(docRef, {
+                                averagegpa: newAvgRating,
+                                count: newCount
+                            });
+                        }).then(function () {
+                            alert('Submission succeed!');
+                            $('#class').val('');
+                            $('#professors').empty();
                         });
-
-                    })
-                });
-            } else {
-                docRef.set({
-                        averagegpa: Number(inputGPA),
-                        classid: selectedClass,
-                        count: 1,
-                        professor: selectedProfessor
-                    })
-                    .then(function () {
-                        console.log("Document successfully written!");
-                    })
-                    .catch(function (error) {
-                        console.error("Error writing document: ", error);
                     });
-            }
-        }).catch(function (error) {
-            console.log("Error getting document:", error);
-        });
+                } else {
+                    docRef.set({
+                            averagegpa: Number(inputGPA),
+                            classid: selectedClass,
+                            count: 1,
+                            professor: selectedProfessor
+                        })
+                        .then(function () {
+                            alert('Submission succeed!');
+                            $('#class').val('');
+                            $('#professors').empty();
+                        });
+                }
+            });
+        }
+    });
+
+    // Offline?
+    $(window).on("unload", function (e) {
+        db.goOffline();
+        alert('???');
+        console.log('???');
     });
 });
