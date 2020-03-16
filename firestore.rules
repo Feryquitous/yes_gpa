@@ -2,11 +2,10 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /test_average_gpa_by_professor_and_class/{avg_gpa} {
-      allow read, write: if true;
+      allow read, create, update;
     }
     match /class_by_professor/{class} {
-      allow read: if true;
-      allow write: if false;
+      allow read;
     }
   }
 }
