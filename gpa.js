@@ -28,17 +28,16 @@ document.addEventListener("DOMContentLoaded", event => {
                 let class_ID = $(element).parent().parent().first()[0]['innerText'].trim().substring(0, pos);
                 let gpa_by_class_professor = 0;
 
-                //check if average gpa present
+                //Check if average gpa present
                 if (avg_gpas.some(avg_gpa => {
                         if (avg_gpa.professor === professor_name && avg_gpa.classid === class_ID) {
                             gpa_by_class_professor = avg_gpa.averagegpa;
                             return true;
                         } else return false;
                     })) {
-                    $(element).text($(element).text() + ' ' + gpa_by_class_professor.toString().substring(0, 5));
-                } else {
-                    $(element).text($(element).text() + ' my test GPA');
+                    $(element).text($(element).text() + ' ' + gpa_by_class_professor.toString().substring(0, 5)).css('color', 'red');
                 }
+
                 // Redundancy Mark  
                 $(element).attr('avg-gpa-applied', 'true');
             });
