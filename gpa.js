@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", event => {
                 }
 
                 // Extract class ID
-                let pos = $(element).parent().parent().first()[0]['innerText'].trim().indexOf(":");
+                let pos = $(element).parent().parent().first()[0]['innerText'].trim().indexOf(':');
                 let class_ID = $(element).parent().parent().first()[0]['innerText'].trim().substring(0, pos);
                 let gpa_by_class_professor = 0;
 
