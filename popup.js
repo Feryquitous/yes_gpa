@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", event => {
             // write data
 
             // need to ref change later
-            var docRef = db.collection("test_average_gpa_by_professor_and_class").doc(documentName);
+            var docRef = db.collection("average_gpa_by_professor_and_class").doc(documentName);
             docRef.get().then(function (doc) {
                 if (doc.exists) {
                     db.runTransaction(transaction => {

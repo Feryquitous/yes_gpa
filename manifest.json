@@ -1,11 +1,11 @@
 {
-  "name": "YES GPA",
+  "name": "Vandy YES GPA",
   "version": "1.0",
-  "description": "Display average GPA on YES!",
+  "description": "Display the average GPA on YES for Vandy students! Students can also submit their GPA for their classes!",
   "icons": {
     "64": "images/get_started64.png"
   },
-  "permissions": ["storage", "tabs", "<all_urls>", "declarativeContent", "identity"],
+  "permissions": ["storage", "tabs", "<all_urls>"],
   "background": {
     "page": "background.html"
   },

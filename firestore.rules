@@ -2,7 +2,28 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /test_average_gpa_by_professor_and_class/{avg_gpa} {
-      allow read, create, update;
+      allow read;
+      allow update: if request.resource.data.averagegpa != null
+                    && request.resource.data.classid == resource.data.classid
+                    && request.resource.data.count != null
+                    && request.resource.data.classid == resource.data.classid;
+
+      allow create: if request.resource.data.averagegpa != null
+                    && request.resource.data.classid != null
+                    && request.resource.data.count == 1
+                    && request.resource.data.professor != null;
+    }
+    match /average_gpa_by_professor_and_class/{avg_gpa} {
+      allow read;
+      allow update: if request.resource.data.averagegpa != null
+                    && request.resource.data.classid == resource.data.classid
+                    && request.resource.data.count != null
+                    && request.resource.data.classid == resource.data.classid;
+
+      allow create: if request.resource.data.averagegpa != null
+                    && request.resource.data.classid != null
+                    && request.resource.data.count == 1
+                    && request.resource.data.professor != null;
     }
     match /class_by_professor/{class} {
       allow read;
