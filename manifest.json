@@ -5,7 +5,7 @@
   "icons": {
     "64": "images/get_started64.png"
   },
-  "permissions": ["storage", "tabs", "<all_urls>"],
+  "permissions": ["storage", "tabs", "activeTab"],
   "background": {
     "page": "background.html"
   },
