@@ -13,6 +13,15 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 document.addEventListener("DOMContentLoaded", event => {
+
+    // External link to Privacy Policy
+    $(document).ready(function(){
+        $('body').on('click', 'a', function(){
+          chrome.tabs.create({url: $(this).attr('href')});
+          return false;
+        });
+     });
+
     // Read Data
     const app = firebase.app();
     const db = firebase.firestore();
